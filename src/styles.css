@@ -1,0 +1,14 @@
+body {
+  background-color: aqua;
+}
+
+@font-face {
+  font-family: MyFont;
+  src: url('../assets/Vitesse.otf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+.customFont {
+  font-family: MyFont;
+}
