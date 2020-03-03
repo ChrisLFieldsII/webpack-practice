@@ -6,57 +6,23 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 console.log('running webpack');
 
-module.exports = {
-  mode: 'development',
+module.exports = ['source-map'].map(devtool => ({
   entry: {
     app: './src/index.js',
   },
   output: {
-    filename: '[name].[contenthash].js',
+    filename: 'webpack-numbers.js',
     path: path.resolve(__dirname, 'dist'),
+    library: 'webpackNumbers',
+    libraryTarget: 'umd',
   },
-  module: {
-    rules: [
-      {
-        test: /\.css/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime'],
-          },
-        },
-      },
-    ],
-  },
-  plugins: [
-    new BundleAnalyzerPlugin(),
-    new ManifestPlugin(),
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ title: 'Output Management' }),
-  ],
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-  },
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
+  devtool,
+  externals: {
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: 'lodash',
+      root: '_',
     },
   },
-};
+}));
