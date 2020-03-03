@@ -10,10 +10,9 @@ module.exports = {
   mode: 'development',
   entry: {
     app: './src/index.js',
-    // print: './src/print.js',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -53,5 +52,11 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true,
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 };

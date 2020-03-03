@@ -1,3 +1,5 @@
-export default function() {
-  console.log('print.js!');
+import _ from 'lodash';
+
+export default function(...items) {
+  return _.join(items, ' ');
 }

@@ -1,14 +1,14 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 
 import './styles.css';
 import trash from '../assets/trash.svg';
-import print from './print';
+// import print from './print';
 
 function Component() {
   const container = document.createElement('div');
 
   const text = document.createElement('p');
-  text.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  text.innerHTML = 'Hello Webpack';
   text.classList.add('customFont');
 
   const img = document.createElement('img');
@@ -19,7 +19,12 @@ function Component() {
 
   const btn = document.createElement('button');
   btn.innerHTML = 'Click Me';
-  btn.onclick = print;
+  btn.onclick = async e => {
+    // lazy load print module which imports lodash
+    const { default: print } = await import(/* webpackChunkName: "print" */ './print');
+    const printRes = print(' ', 'hello', 'to', 'the', 'world');
+    text.innerHTML = text.innerHTML.concat(printRes);
+  };
 
   container.appendChild(text);
   container.appendChild(img);
