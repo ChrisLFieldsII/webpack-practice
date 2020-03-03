@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import './styles.css';
 import trash from '../assets/trash.svg';
+import print from './print';
 
 function component() {
   const container = document.createElement('div');
@@ -15,8 +16,13 @@ function component() {
   img.alt = 'trash icon';
   img.width = 25;
 
+  const btn = document.createElement('button');
+  btn.innerHTML = 'Click Me';
+  btn.onclick = print;
+
   container.appendChild(text);
   container.appendChild(img);
+  container.appendChild(btn);
 
   return container;
 }
