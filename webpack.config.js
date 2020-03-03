@@ -1,13 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 console.log('running webpack');
 
 module.exports = {
+  mode: 'development',
   entry: {
     app: './src/index.js',
-    print: './src/print.js',
+    // print: './src/print.js',
   },
   output: {
     filename: '[name].bundle.js',
@@ -29,5 +31,14 @@ module.exports = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({ title: 'Output Management' })],
+  plugins: [
+    new ManifestPlugin(),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ title: 'Output Management' }),
+  ],
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist',
+    hot: true,
+  },
 };
